@@ -22,6 +22,7 @@ namespace LeetCodeQA.API.Controllers
             }
             return null;
         }
+
         [HttpPost("two-sum2")]
         public int[]? TwoSum2(int[] nums, int target)
         {
@@ -33,6 +34,7 @@ namespace LeetCodeQA.API.Controllers
             }
             return null;
         }
+
         [HttpPost("palindrome-number1")]
         public bool PalindromeNumber1(int number)
         {
@@ -44,6 +46,7 @@ namespace LeetCodeQA.API.Controllers
             }
             return convertToCharArray.SequenceEqual(reversedCharArray);
         }
+
         [HttpGet("roman-to-integer1")]
         public int RomanToInteger1(string romanString)
         {
@@ -65,26 +68,31 @@ namespace LeetCodeQA.API.Controllers
             }
             return totalValue + romanDictionary[romanString[romanString.Length - 1]];
         }
-        /*
-        [HttpPost("longest-common-prefix1")]
-        public string LongestCommonPrefix1(string[] words)
-        {
-            int currentIndex = 0;
-            var resultText = string.Empty;
-            string shortestWord = words.OrderBy(s => s.Length).First();
 
+        [HttpPost("longest-common-prefix1")]
+        public string LongestCommonPrefix(string[] strs)
+        {
+            Array.Sort(strs, (x, y) => x.Length.CompareTo(y.Length));
+
+            var shortestWord = strs[0];
+
+            var currentPrefix = string.Empty;
             for (int i = 0; i < shortestWord.Length; i++)
             {
-                if (i > words.Length) break;
-                var isMatchForAllWords = false;
-                var lastCheckedCharacter = string.Empty;
-                for (int j = 0; j < words[i].Length; j++)
+                var isExistForAll = true;
+                for (int j = 1; j < strs.Length; j++)
                 {
-                    lastCheckedCharacter = words[j][i];
+                    if (shortestWord[i] != strs[j][i])
+                    {
+                        isExistForAll = false;
+                        break;
+                    }
                 }
+                if (!isExistForAll) break;
+                else currentPrefix += shortestWord[i];
             }
-            return resultText;
+
+            return currentPrefix;
         }
-        */
     }
 }

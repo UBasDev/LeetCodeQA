@@ -22,6 +22,7 @@ namespace LeetCodeQA.Test
             responseToString.Should().NotBeNullOrEmpty();
             responseToString.Should().Be("[0,1]");
         }
+
         [Fact]
         public async Task TwoSum2()
         {
@@ -34,6 +35,7 @@ namespace LeetCodeQA.Test
             responseToString.Should().NotBeNullOrEmpty();
             responseToString.Should().Be("[0,1]");
         }
+
         [Fact]
         public async Task PalindromeNumber1()
         {
@@ -45,6 +47,7 @@ namespace LeetCodeQA.Test
             responseToString.Should().NotBeNullOrEmpty();
             responseToString.Should().Be("true");
         }
+
         [Fact]
         public async Task RomanToInteger1()
         {
@@ -55,6 +58,18 @@ namespace LeetCodeQA.Test
             var responseToString = await response.Content.ReadAsStringAsync();
             responseToString.Should().NotBeNullOrEmpty();
             responseToString.Should().Be("1994");
+        }
+
+        [Fact]
+        public async Task LongestCommonPrefix1()
+        {
+            var wordArray = new string[] { "flower", "fluid", "flood" };
+            var response = await HttpClient.PostAsJsonAsync($"api/leetcode/longest-common-prefix1", wordArray);
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+
+            var responseToString = await response.Content.ReadAsStringAsync();
+            responseToString.Should().NotBeNullOrEmpty();
+            responseToString.Should().Be("fl");
         }
     }
 }
