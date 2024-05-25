@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -70,6 +71,18 @@ namespace LeetCodeQA.Test
             var responseToString = await response.Content.ReadAsStringAsync();
             responseToString.Should().NotBeNullOrEmpty();
             responseToString.Should().Be("fl");
+        }
+
+        [Fact]
+        public async Task ValidParanthesis1()
+        {
+            var word = "({[]})";
+            var response = await HttpClient.PostAsJsonAsync($"api/leetcode/valid-paranthesis1", word);
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+
+            var responseToString = await response.Content.ReadAsStringAsync();
+            responseToString.Should().NotBeNullOrEmpty();
+            responseToString.Should().Be("true");
         }
     }
 }

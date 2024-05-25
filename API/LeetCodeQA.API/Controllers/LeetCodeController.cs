@@ -70,7 +70,7 @@ namespace LeetCodeQA.API.Controllers
         }
 
         [HttpPost("longest-common-prefix1")]
-        public string LongestCommonPrefix(string[] strs)
+        public string LongestCommonPrefix1(string[] strs)
         {
             Array.Sort(strs, (x, y) => x.Length.CompareTo(y.Length));
 
@@ -93,6 +93,36 @@ namespace LeetCodeQA.API.Controllers
             }
 
             return currentPrefix;
+        }
+
+        [HttpPost("valid-paranthesis1")]
+        public bool ValidParanthesis1([FromBody] string s)
+        {
+            if (s.Length <= 1) return false;
+
+            var stack = new Stack<char>() { };
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '(' || s[i] == '{' || s[i] == '[')
+                {
+                    stack.Push(s[i]);
+                }
+                else if (stack.Count == 0) return false;
+                else if (s[i] == ')' && stack.Pop() != '(')
+                {
+                    return false;
+                }
+                else if (s[i] == '}' && stack.Pop() != '{')
+                {
+                    return false;
+                }
+                else if (s[i] == ']' && stack.Pop() != '[')
+                {
+                    return false;
+                }
+            }
+            return stack.Count == 0;
         }
     }
 }
