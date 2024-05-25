@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using LeetCodeQA.API.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -83,6 +84,22 @@ namespace LeetCodeQA.Test
             var responseToString = await response.Content.ReadAsStringAsync();
             responseToString.Should().NotBeNullOrEmpty();
             responseToString.Should().Be("true");
+        }
+
+        [Fact]
+        public async Task MergeTwoSortedLists()
+        {
+            var requestBody = new MergeTwoListsRequest()
+            {
+                List1 = new int[] { 1, 2, 4 },
+                List2 = new int[] { 1, 3, 4 }
+            };
+            var response = await HttpClient.PostAsJsonAsync($"api/leetcode/merge-two-sorted-list1", requestBody);
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+
+            var responseToString = await response.Content.ReadAsStringAsync();
+            responseToString.Should().NotBeNullOrEmpty();
+            responseToString.Should().Be("{}");
         }
     }
 }

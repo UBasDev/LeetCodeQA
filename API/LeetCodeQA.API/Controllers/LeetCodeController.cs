@@ -1,4 +1,5 @@
-﻿using LeetCodeQA.API.Requests;
+﻿using LeetCodeQA.API.Models;
+using LeetCodeQA.API.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
@@ -123,6 +124,80 @@ namespace LeetCodeQA.API.Controllers
                 }
             }
             return stack.Count == 0;
+        }
+
+        [HttpPost("merge-two-sorted-list1")]
+        public ListNode MergeTwoSortedLists([FromBody] MergeTwoListsRequest requestBody)
+        {
+            var list1 = new ListNode();
+            var list2 = new ListNode();
+
+            list1.val = requestBody.List1[0];
+
+            for (int i = 1; i < requestBody.List1.Length; i++)
+            {
+                list1 = new ListNode(requestBody.List1[i], list1);
+            }
+
+            list2.val = requestBody.List2[0];
+
+            for (int i = 1; i < requestBody.List2.Length; i++)
+            {
+                list2 = new ListNode(requestBody.List2[i], list2);
+            }
+            return MergeTwoLists(list1, list2);
+        }
+
+        private static ListNode MergeTwoLists(ListNode list1, ListNode list2)
+        {
+            if (list1 == null) return list2;
+            if (list2 == null) return list1;
+
+            var currentNode = new ListNode();
+
+            var allValues = new List<int>();
+
+            allValues.Add(list1.val);
+            currentNode = list1.next;
+
+            while (true)
+            {
+                if (currentNode == null) break;
+                allValues.Add(currentNode.val);
+
+                if (currentNode.next == null) break;
+
+                currentNode = currentNode.next;
+            }
+
+            allValues.Add(list2.val);
+            currentNode = list2.next;
+
+            while (true)
+            {
+                if (currentNode == null) break;
+                allValues.Add(currentNode.val);
+
+                if (currentNode.next == null) break;
+
+                currentNode = currentNode.next;
+            }
+
+            allValues.Sort((x, y) => y.CompareTo(x));
+
+            var newListNode = new ListNode();
+
+            for (int i = 0; i < allValues.Count; i++)
+            {
+                if (i == 0)
+                {
+                    newListNode.val = allValues[0];
+                    continue;
+                }
+                newListNode = new ListNode(allValues[i], newListNode);
+            }
+
+            return newListNode;
         }
     }
 }
