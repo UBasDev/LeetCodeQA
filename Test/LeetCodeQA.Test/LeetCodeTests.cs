@@ -101,5 +101,31 @@ namespace LeetCodeQA.Test
             responseToString.Should().NotBeNullOrEmpty();
             responseToString.Should().Be("{}");
         }
+
+        [Fact]
+        public async Task FindFirstOccurrence1()
+        {
+            var haystack = "sadbutsad";
+            var needle = "but";
+            var response = await HttpClient.GetAsync($"api/leetcode/find-first-occurrence1?haystack={haystack}&needle={needle}");
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+
+            var responseToString = await response.Content.ReadAsStringAsync();
+            responseToString.Should().NotBeNullOrEmpty();
+            responseToString.Should().Be("3");
+        }
+
+        [Fact]
+        public async Task FindFirstOccurrence2()
+        {
+            var haystack = "sadbutsad";
+            var needle = "but";
+            var response = await HttpClient.GetAsync($"api/leetcode/find-first-occurrence2?haystack={haystack}&needle={needle}");
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+
+            var responseToString = await response.Content.ReadAsStringAsync();
+            responseToString.Should().NotBeNullOrEmpty();
+            responseToString.Should().Be("3");
+        }
     }
 }

@@ -199,5 +199,24 @@ namespace LeetCodeQA.API.Controllers
 
             return newListNode;
         }
+
+        [HttpGet("find-first-occurrence1")]
+        public int FindFirstOccurrence1(string haystack, string needle)
+        {
+            if (haystack.Length < needle.Length) return -1;
+            return haystack.IndexOf(needle);
+        }
+
+        [HttpGet("find-first-occurrence2")]
+        public int FindFirstOccurrence2(string haystack, string needle)
+        {
+            if (haystack.Length < needle.Length) return -1;
+            for (int i = 0; i < haystack.Length; i++)
+            {
+                if (i + needle.Length > haystack.Length) return -1;
+                else if (haystack[i..(i + needle.Length)] == needle) return i;
+            }
+            return -1;
+        }
     }
 }
