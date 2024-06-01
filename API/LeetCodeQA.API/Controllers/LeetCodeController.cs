@@ -218,5 +218,15 @@ namespace LeetCodeQA.API.Controllers
             }
             return -1;
         }
+
+        [HttpPost("search-insert-position")]
+        public int SearchInsertPosition(int[] nums, int target)
+        {
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (target <= nums[i]) return i;
+            }
+            return nums.Length;
+        }
     }
 }

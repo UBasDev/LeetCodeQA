@@ -127,5 +127,19 @@ namespace LeetCodeQA.Test
             responseToString.Should().NotBeNullOrEmpty();
             responseToString.Should().Be("3");
         }
+
+        [Fact]
+        public async Task SearchInsertPosition()
+        {
+            var nums = new int[] { 1, 3, 5, 6 };
+            var target = 7;
+            var response = await HttpClient.PostAsJsonAsync($"api/leetcode/search-insert-position?target={target}", nums);
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+
+            var responseToString = await response.Content.ReadAsStringAsync();
+            responseToString.Should().NotBeNullOrEmpty();
+            responseToString.Should().Be("4");
+        }
     }
 }
