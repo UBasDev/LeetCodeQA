@@ -228,5 +228,17 @@ namespace LeetCodeQA.API.Controllers
             }
             return nums.Length;
         }
+
+        [HttpGet("length-of-last-word")]
+        public int LengthOfLastWord(string s)
+        {
+            var trimmed = s.TrimEnd();
+            if (trimmed.Length == 1) return 1;
+            for (int i = trimmed.Length - 1; i >= 0; i--)
+            {
+                if (i == 0 || s[i - 1] == ' ') return trimmed.Length - i;
+            }
+            return 0;
+        }
     }
 }

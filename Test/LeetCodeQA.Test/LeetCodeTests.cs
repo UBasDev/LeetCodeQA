@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using LeetCodeQA.API.Requests;
+using Org.BouncyCastle.Asn1.X509;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -134,6 +135,19 @@ namespace LeetCodeQA.Test
             var nums = new int[] { 1, 3, 5, 6 };
             var target = 7;
             var response = await HttpClient.PostAsJsonAsync($"api/leetcode/search-insert-position?target={target}", nums);
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+
+            var responseToString = await response.Content.ReadAsStringAsync();
+            responseToString.Should().NotBeNullOrEmpty();
+            responseToString.Should().Be("4");
+        }
+
+        [Fact]
+        public async Task LengthOfLastWord()
+        {
+            var text = "   fly me   to   the moon  ";
+            var response = await HttpClient.GetAsync($"api/leetcode/length-of-last-word?s={text}");
 
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
 
