@@ -155,5 +155,18 @@ namespace LeetCodeQA.Test
             responseToString.Should().NotBeNullOrEmpty();
             responseToString.Should().Be("4");
         }
+
+        [Fact]
+        public async Task Sqrt()
+        {
+            var number = "8";
+            var response = await HttpClient.GetAsync($"api/leetcode/sqrt?x={number}");
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+
+            var responseToString = await response.Content.ReadAsStringAsync();
+            responseToString.Should().NotBeNullOrEmpty();
+            responseToString.Should().Be("2");
+        }
     }
 }

@@ -240,5 +240,18 @@ namespace LeetCodeQA.API.Controllers
             }
             return 0;
         }
+
+        [HttpGet("sqrt")]
+        public int Sqrt1(int x)
+        {
+            if (x == 0) return x;
+            else if (x == 1) return x;
+            for (double i = 2, j = x / 2; i <= x / 2 || j >= 0; i++, j--)
+            {
+                if (i * i > x) return Convert.ToInt32(i - 1);
+                else if (j * j < x) return Convert.ToInt32(j);
+            }
+            return 0;
+        }
     }
 }
