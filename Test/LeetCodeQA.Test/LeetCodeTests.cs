@@ -168,5 +168,18 @@ namespace LeetCodeQA.Test
             responseToString.Should().NotBeNullOrEmpty();
             responseToString.Should().Be("2");
         }
+
+        [Fact]
+        public async Task ClimbStairs()
+        {
+            var stairCount = "8";
+            var response = await HttpClient.GetAsync($"api/leetcode/climb-stairs?n={stairCount}");
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+
+            var responseToString = await response.Content.ReadAsStringAsync();
+            responseToString.Should().NotBeNullOrEmpty();
+            responseToString.Should().Be("34");
+        }
     }
 }
